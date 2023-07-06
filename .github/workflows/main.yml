@@ -22,11 +22,11 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Ejecutar pruebas
-        run: |          
+        run: |
           export FLASK_APP=app.py  # Configurar la variable de entorno FLASK_APP
           gunicorn app:app --bind 0.0.0.0:5000 &  # Ejecutar la aplicación con Gunicorn
-          sleep 10  # Esperar unos segundos para que ngrok establezca el túnel
-          echo "La aplicación Flask está disponible en: $(curl --silent http://localhost:4040/api/tunnels | grep -o 'https://.*\.ngrok.io')"
+          sleep 10  # Esperar unos segundos para que la aplicación se inicie
+          echo "La aplicación Flask está disponible en: http://$(curl --silent ifconfig.me):5000"
         shell: bash
         env:
           pythonLocation: /opt/hostedtoolcache/Python/3.8.17/x64
@@ -35,4 +35,3 @@ jobs:
         run: |
           sleep 60  # Esperar un minuto antes de limpiar los procesos orfanos
           ps aux | grep '[g]unicorn' | awk '{print $2}' | xargs kill -9
-          ps aux | grep '[n]grok' | awk '{print $2}' | xargs kill -9
