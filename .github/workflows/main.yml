@@ -33,5 +33,5 @@ jobs:
           LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.8.17/x64/lib
       - name: Limpiar procesos orfanos
         run: |
-          sleep 60  # Esperar un minuto antes de limpiar los procesos orfanos
+          sleep 120  # Esperar un minuto antes de limpiar los procesos orfanos
           ps aux | grep '[g]unicorn' | awk '{print $2}' | xargs kill -9
