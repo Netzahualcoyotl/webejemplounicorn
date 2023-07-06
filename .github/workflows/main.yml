@@ -24,9 +24,9 @@ jobs:
       - name: Ejecutar pruebas
         run: |
           ngrok authtoken ${{ secrets.ACCESO1 }}
-          ngrok restart
+          ngrok http 5000 --region=us &
           export FLASK_APP=app.py  # Configurar la variable de entorno FLASK_APP
-          flask run --host=0.0.0.0 &  # Ejecutar Flask en segundo plano
+          gunicorn app:app --bind 0.0.0.0:5000 &  # Ejecutar la aplicación con Gunicorn
           sleep 10  # Esperar unos segundos para que ngrok establezca el túnel
           echo "La aplicación Flask está disponible en: $(curl --silent http://localhost:4040/api/tunnels | grep -o 'https://.*\.ngrok.io')"
         shell: bash
@@ -36,5 +36,5 @@ jobs:
       - name: Limpiar procesos orfanos
         run: |
           sleep 60  # Esperar un minuto antes de limpiar los procesos orfanos
-          ps aux | grep '[f]lask' | awk '{print $2}' | xargs kill -9
+          ps aux | grep '[g]unicorn' | awk '{print $2}' | xargs kill -9
           ps aux | grep '[n]grok' | awk '{print $2}' | xargs kill -9
