@@ -22,9 +22,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Ejecutar pruebas
-        run: |
-          ngrok authtoken ${{ secrets.ACCESO1 }}
-          ngrok http 5000 --region=us &
+        run: |          
           export FLASK_APP=app.py  # Configurar la variable de entorno FLASK_APP
           gunicorn app:app --bind 0.0.0.0:5000 &  # Ejecutar la aplicación con Gunicorn
           sleep 10  # Esperar unos segundos para que ngrok establezca el túnel
