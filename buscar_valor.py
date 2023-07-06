@@ -17,7 +17,7 @@ def descargar_archivo(url, nombre_archivo):
             log.write(f"Error al descargar el archivo {nombre_archivo}. Código de respuesta: {response.status_code}\n")
         
 # Descargar el archivo ODS desde la URL
-descargar_archivo('https://raw.githubusercontent.com/Netzahualcoyotl/webejemplo/main/BD.ods', nombre_archivo)
+descargar_archivo('https://raw.githubusercontent.com/Netzahualcoyotl/webejemplounicorn /main/BD.ods', nombre_archivo)
 
 if os.path.exists(nombre_archivo):
     print("El archivo se ha descargado correctamente.")
